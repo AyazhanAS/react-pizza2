@@ -1,9 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Header() {
   return (
     <div className="header">
         <div className="container">
+          <Link to="/">
           <div className="header__logo">
             <img width="38" src="img/pizza-logo.svg" alt="Pizza logo" />
             <div>
@@ -11,6 +13,8 @@ export default function Header() {
               <p>самая вкусная пицца во вселенной</p>
             </div>
           </div>
+          </Link>
+          <Link to="cart">
           <div className="header__cart">
             <a href="/cart.html" className="button button--cart">
               <span>520 ₽</span>
@@ -47,6 +51,8 @@ export default function Header() {
               <span>3</span>
             </a>
           </div>
+          </Link>
+         
         </div>
       </div>
   )

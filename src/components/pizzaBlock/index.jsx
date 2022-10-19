@@ -10,7 +10,8 @@ export default function PizzaBlock(props) {
  
   return (
              
-    <div className="pizza-block">
+   <div className="pizza-block__wrapper">
+     <div className="pizza-block">
     <img
       className="pizza-block__image"
       src={props.image}
@@ -28,9 +29,7 @@ export default function PizzaBlock(props) {
 
       </ul>
       <ul>
-        {/* <li className="active">26 см.</li>
-        <li>30 см.</li>
-        <li>40 см.</li> */}
+      
 
 
         {props.sizes.map((size, id)=> <li key={size} onClick = {()=>setActiveSize(id)}  className={activeSize===id?"active":""}>{size} cm</li> )}
@@ -56,6 +55,7 @@ export default function PizzaBlock(props) {
       </button>
     </div>
     </div>
+   </div>
   
   )
 }
