@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Search from './search'
 
 export default function Header() {
   return (
@@ -14,6 +15,7 @@ export default function Header() {
             </div>
           </div>
           </Link>
+          <Search/>
           <Link to="cart">
           <div className="header__cart">
             <a href="/cart.html" className="button button--cart">
@@ -52,6 +54,7 @@ export default function Header() {
             </a>
           </div>
           </Link>
+          
          
         </div>
       </div>
