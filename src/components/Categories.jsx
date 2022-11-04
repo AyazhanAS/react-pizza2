@@ -3,6 +3,7 @@ import React from 'react'
 
 export default function Categories({categoryId, onActiveCategory}) {
 
+
   
 
   const categories = ["Все","Мясные","Вегетарианская", "Гриль", "Острые", "Закрытые"]

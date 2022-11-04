@@ -12,7 +12,8 @@ import Pagination from '../components/pagination';
 import { useContext } from 'react';
 import { SearchContext } from '../App';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCategoryId } from '../redux/slices/filterSlice';
+import { setCategoryId, setCurrentPage} from '../redux/slices/filterSlice';
+import axios from 'axios';
 
 
 
@@ -20,7 +21,7 @@ import { setCategoryId } from '../redux/slices/filterSlice';
 
 export default function Home() {
 
-  const categoryId = useSelector((state)=>state.filter.categoryId)
+  const {categoryId, sort, currentPage} = useSelector((state)=>state.filter)
   const sortType = useSelector(state=>state.filter.sort.sort)
 
     const [items, setItems] = useState([])
@@ -35,9 +36,9 @@ export default function Home() {
 
   
 
-    const [currentPage, setCurrentPage] = useState(0)
-
-
+    const onChangePage = number =>{
+       dispatch(setCurrentPage(number))
+    }
   
 
     const {searchValue} = useContext(SearchContext)
@@ -53,12 +54,21 @@ export default function Home() {
       const category = categoryId>0?`category=${categoryId}`:'';
       const search = searchValue?`&search=${searchValue}`:'';
 
-      fetch(`https://634a3d905df95285140de380.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`).then(res=>{
-        return res.json()
-      }).then(json=>{
-        setItems(json)
-        setIsLoading(false)
-      })
+
+      axios.get(`https://634a3d905df95285140de380.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
+.then(response=>{
+  setItems(response.data)
+  setIsLoading(false)
+    
+}
+  
+)
+      // fetch(`https://634a3d905df95285140de380.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`).then(res=>{
+      //   return res.json()
+      // }).then(json=>{
+      //   setItems(json)
+      //   setIsLoading(false)
+      // })
   
     }, [categoryId, sortType, searchValue, currentPage])
 
@@ -104,7 +114,7 @@ export default function Home() {
 
 
           </div>
-          <Pagination onChangePage={(number)=>setCurrentPage(number)}/>
+          <Pagination currentPage={currentPage} onChangePage={onChangePage}/>
     </div>
   )
 }
